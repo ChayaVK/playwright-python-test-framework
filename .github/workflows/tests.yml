@@ -17,18 +17,18 @@ jobs:
     name: Tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    # The official Playwright image already has Python, the browsers and their system libraries,
+    # so the job does not need to download them. Keep the tag the same as playwright in requirements.txt.
+    container:
+      image: mcr.microsoft.com/playwright/python:v1.63.0-noble
+      options: --ipc=host
     strategy:
       fail-fast: false
       matrix:
         browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-          cache: pip
       - run: pip install -r requirements.txt
-      - run: python -m playwright install --with-deps ${{ matrix.browser }}
       - name: Run tests
         run: pytest -n auto --reruns 1 --browser ${{ matrix.browser }} ${{ inputs.marker && format('-m {0}', inputs.marker) || '' }}
         env:
