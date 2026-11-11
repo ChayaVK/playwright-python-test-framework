@@ -33,6 +33,7 @@ jobs:
         run: pytest -n auto --reruns 1 --browser ${{ matrix.browser }} ${{ inputs.marker && format('-m {0}', inputs.marker) || '' }}
         env:
           TEST_ENV: local
+          HOME: /root # Firefox in the Playwright image needs a home folder owned by the current user
           # For a real app, store logins as repository secrets:
           # APP_USERNAME: ${{ secrets.APP_USERNAME }}
           # APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
