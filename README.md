@@ -5,7 +5,7 @@ It comes with its own small demo web app (the **Practice Shop**) and a REST API,
 
 Use it as it is to learn, or rename it and point it at your own application.
 
-> Tested: 47 tests in Chromium on a local machine, one by one and in parallel (`pytest -n auto`).
+> Tested: all 47 tests pass on a local machine (one by one and with `pytest -n auto`), in Chromium, Firefox and WebKit in GitHub Actions, and in all three browsers inside Docker.
 
 ---
 
@@ -317,7 +317,7 @@ The image is `mcr.microsoft.com/playwright/python`, which already contains the b
 
 ## 15. Run in GitHub Actions
 
-Push the project to GitHub and `.github/workflows/tests.yml` runs on every push and pull request to `main`: one job per browser (Chromium, Firefox, WebKit), in parallel, with one rerun for failed tests. Download the reports from the run's **Artifacts** section. Use **Actions > Playwright Python Tests > Run workflow** to run only one marker, for example `smoke`.
+Push the project to GitHub and `.github/workflows/tests.yml` runs on every push and pull request to `main`: one job per browser (Chromium, Firefox, WebKit), in parallel, inside the official Playwright Python image (so nothing has to be downloaded), with one rerun for failed tests. Download the reports from the run's **Artifacts** section. Use **Actions > Playwright Python Tests > Run workflow** to run only one marker, for example `smoke`.
 
 `.github/workflows/docker.yml` builds the Docker image and runs the suite inside it every weekday night, or whenever you start it by hand.
 
