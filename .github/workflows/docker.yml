@@ -1,0 +1,31 @@
+name: Docker Tests
+
+# Builds the Docker image and runs the suite inside it, the same way you would on your laptop.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 2 * * 1-5' # weekdays, nightly run
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: docker build -t pw-python-tests .
+      - name: Run tests in the container
+        run: |
+          mkdir -p reports test-results
+          docker run --rm --ipc=host \
+            -v "$PWD/reports:/app/reports" \
+            -v "$PWD/test-results:/app/test-results" \
+            pw-python-tests pytest -n auto --browser chromium --browser firefox --browser webkit
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: docker-reports
+          path: |
+            reports
+            test-results
+          retention-days: 14

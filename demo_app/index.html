@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Login</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<main><div class="card login">
+  <h1>Practice Shop</h1>
+  <label for="username">Username</label><input id="username" autocomplete="off">
+  <label for="password">Password</label><input id="password" type="password">
+  <div class="error hidden" data-test="error"></div><br>
+  <button id="login-button">Login</button>
+  <p class="hint">Users: standard_user, locked_user &middot; Password: Test@123</p>
+</div></main>
+<script>
+  const pending = sessionStorage.getItem('loginError');
+  if (pending) { sessionStorage.removeItem('loginError'); showError(pending); }
+  document.getElementById('login-button').onclick = () => {
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value;
+    if (!u) return showError('Username is required');
+    if (!p) return showError('Password is required');
+    if (USERS[u] !== p) return showError('Username and password do not match');
+    if (u === 'locked_user') return showError('This user has been locked out');
+    localStorage.setItem('user', u); location.href = 'products.html';
+  };
+</script></body></html>

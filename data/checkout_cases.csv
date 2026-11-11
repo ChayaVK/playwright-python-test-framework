@@ -1,0 +1,4 @@
+case,first_name,last_name,postal_code,error
+missing first name,,Lee,10001,First Name is required
+missing last name,Sam,,10001,Last Name is required
+missing postal code,Sam,Lee,,Postal Code is required

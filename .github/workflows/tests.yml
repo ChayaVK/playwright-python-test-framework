@@ -1,0 +1,46 @@
+name: Playwright Python Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      marker:
+        description: 'Marker to run, for example smoke (leave empty for all)'
+        required: false
+        default: ''
+
+jobs:
+  ui-tests:
+    name: Tests (${{ matrix.browser }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - name: Run tests
+        run: pytest -n auto --reruns 1 --browser ${{ matrix.browser }} ${{ inputs.marker && format('-m {0}', inputs.marker) || '' }}
+        env:
+          TEST_ENV: local
+          # For a real app, store logins as repository secrets:
+          # APP_USERNAME: ${{ secrets.APP_USERNAME }}
+          # APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: report-${{ matrix.browser }}
+          path: |
+            reports
+            test-results
+          retention-days: 7

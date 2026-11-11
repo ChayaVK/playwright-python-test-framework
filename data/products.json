@@ -1,0 +1,16 @@
+{
+  "taxRate": 0.08,
+  "products": [
+    { "name": "Laptop Bag", "price": 49.99 },
+    { "name": "Wireless Mouse", "price": 19.99 },
+    { "name": "USB-C Cable", "price": 9.99 },
+    { "name": "Bluetooth Speaker", "price": 39.99 },
+    { "name": "Water Bottle", "price": 14.99 },
+    { "name": "Desk Lamp", "price": 24.99 }
+  ],
+  "orders": [
+    { "case": "single item", "items": ["Desk Lamp"] },
+    { "case": "two items", "items": ["Laptop Bag", "USB-C Cable"] },
+    { "case": "three items", "items": ["Wireless Mouse", "Water Bottle", "Bluetooth Speaker"] }
+  ]
+}

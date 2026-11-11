@@ -1,0 +1,13 @@
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6fa;color:#1c2540}
+header{background:#16223e;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 24px}
+header .app-title{font-size:20px;font-weight:bold}header a{color:#f0c45a;text-decoration:none;margin-left:16px}
+.badge{background:#e74c3c;color:#fff;border-radius:10px;padding:1px 7px;font-size:12px;margin-left:4px}
+main{max-width:960px;margin:24px auto;padding:0 16px}
+.card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,.1);margin-bottom:16px}
+.login{max-width:360px;margin:60px auto}input,select{width:100%;padding:10px;margin:6px 0 12px;border:1px solid #ccd;border-radius:4px}
+input[type=checkbox]{width:auto}button{background:#16223e;color:#fff;border:0;border-radius:4px;padding:10px 16px;cursor:pointer}
+button.secondary{background:#fff;color:#16223e;border:1px solid #16223e}.error{background:#fde8e8;color:#b42318;padding:10px;border-radius:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.inventory-item .item-price,.cart-item .item-price{font-weight:bold;margin:8px 0}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px;text-align:left}.hidden{display:none}
+.hint{color:#667;font-size:13px}

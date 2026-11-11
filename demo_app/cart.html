@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Cart</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<script>requireLogin(); header('Your Cart');</script>
+<main>
+  <div id="cart-items"></div>
+  <p id="empty-cart" class="hint hidden">Your cart is empty.</p>
+  <button id="continue-shopping" class="secondary">Continue shopping</button>
+  <button id="checkout">Checkout</button>
+</main>
+<script>
+  const items = cart();
+  document.getElementById('empty-cart').classList.toggle('hidden', items.length > 0);
+  document.getElementById('cart-items').innerHTML = items.map(s => {
+    const p = bySlug(s);
+    return `<div class="card cart-item"><div class="item-name">${p.name}</div>
+      <div class="item-price">${money(p.price)}</div><button id="remove-${s}" class="secondary">Remove</button></div>`;
+  }).join('');
+  items.forEach(s => document.getElementById('remove-' + s).onclick = () => {
+    saveCart(cart().filter(x => x !== s)); location.reload();
+  });
+  document.getElementById('continue-shopping').onclick = () => location.href = 'products.html';
+  document.getElementById('checkout').onclick = () => location.href = 'checkout.html';
+</script></body></html>

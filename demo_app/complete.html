@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Complete</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<script>requireLogin(); header('Checkout: Complete');</script>
+<main><div class="card">
+  <h2 id="complete-header">Thank you for your order!</h2>
+  <p id="complete-text">Your order has been placed and will arrive soon.</p>
+  <button id="back-home">Back to products</button>
+</div></main>
+<script>document.getElementById('back-home').onclick = () => location.href = 'products.html';</script>
+</body></html>

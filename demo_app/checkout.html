@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Checkout</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<script>requireLogin(); header('Checkout: Your Information');</script>
+<main><div class="card" style="max-width:420px">
+  <label for="first-name">First Name</label><input id="first-name">
+  <label for="last-name">Last Name</label><input id="last-name">
+  <label for="postal-code">Postal Code</label><input id="postal-code">
+  <div class="error hidden" data-test="error"></div><br>
+  <button id="cancel" class="secondary">Cancel</button> <button id="continue">Continue</button>
+</div></main>
+<script>
+  document.getElementById('cancel').onclick = () => location.href = 'cart.html';
+  document.getElementById('continue').onclick = () => {
+    const f = document.getElementById('first-name').value.trim();
+    const l = document.getElementById('last-name').value.trim();
+    const z = document.getElementById('postal-code').value.trim();
+    if (!f) return showError('First Name is required');
+    if (!l) return showError('Last Name is required');
+    if (!z) return showError('Postal Code is required');
+    sessionStorage.setItem('customer', JSON.stringify({ f, l, z }));
+    location.href = 'checkout-overview.html';
+  };
+</script></body></html>

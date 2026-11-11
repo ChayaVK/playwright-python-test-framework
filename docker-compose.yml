@@ -1,0 +1,13 @@
+# Run the tests in a container:  docker compose up --build --abort-on-container-exit
+# Reports land in ./reports and ./test-results on your machine.
+services:
+  tests:
+    build: .
+    image: pw-python-tests
+    ipc: host # recommended by Playwright so Chromium does not run out of memory
+    environment:
+      - TEST_ENV=${TEST_ENV:-local}
+    command: pytest -n auto --browser chromium --browser firefox --browser webkit
+    volumes:
+      - ./reports:/app/reports
+      - ./test-results:/app/test-results

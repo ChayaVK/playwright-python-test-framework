@@ -1,0 +1,9 @@
+# Install with:  pip install -r requirements.txt
+# Then download the browsers once:  python -m playwright install
+playwright==1.63.0
+pytest>=8.3
+pytest-playwright>=0.7.0
+pytest-xdist>=3.6
+pytest-html>=4.1
+pytest-rerunfailures>=15.0
+python-dotenv>=1.0

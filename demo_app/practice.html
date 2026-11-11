@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Practice</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<script>header('Practice Page');</script>
+<main>
+  <div class="card"><h3>Alerts</h3>
+    <button id="alert-btn">JS Alert</button> <button id="confirm-btn">JS Confirm</button> <button id="prompt-btn">JS Prompt</button>
+    <p id="alert-result"></p></div>
+  <div class="card"><h3>Frame</h3>
+    <iframe id="practice-frame" src="frame.html" style="width:100%;height:120px;border:1px solid #ccd"></iframe></div>
+  <div class="card"><h3>Windows</h3><a id="new-window-link" href="window.html" target="_blank">Open new window</a></div>
+  <div class="card"><h3>Dynamic loading</h3><button id="start-loading">Start</button>
+    <p id="loading" class="hidden">Loading...</p><p id="loaded-text" class="hidden">Loading complete</p></div>
+  <div class="card"><h3>Dropdown, checkbox and upload</h3>
+    <label for="country">Country</label>
+    <select id="country"><option value="">Select a country</option><option value="IN">India</option>
+      <option value="US">United States</option><option value="UK">United Kingdom</option></select>
+    <label><input type="checkbox" id="terms"> I accept the terms</label><br><br>
+    <input type="file" id="file-upload"><p id="file-name"></p></div>
+  <div class="card"><h3>Web table</h3>
+    <table id="employees"><thead><tr><th>Name</th><th>Department</th><th>Salary</th></tr></thead><tbody>
+      <tr><td>Anita</td><td>QA</td><td>65000</td></tr><tr><td>Brian</td><td>Development</td><td>82000</td></tr>
+      <tr><td>Carlos</td><td>QA</td><td>71000</td></tr><tr><td>Deepa</td><td>DevOps</td><td>78000</td></tr>
+      <tr><td>Elena</td><td>Development</td><td>90000</td></tr></tbody></table></div>
+</main>
+<script>
+  const out = t => document.getElementById('alert-result').textContent = t;
+  document.getElementById('alert-btn').onclick = () => { alert('Hello from the Practice Shop'); out('You saw an alert'); };
+  document.getElementById('confirm-btn').onclick = () => out('You clicked: ' + (confirm('Do you want to continue?') ? 'OK' : 'Cancel'));
+  document.getElementById('prompt-btn').onclick = () => { const v = prompt('Enter your name'); out(v === null ? 'You cancelled' : 'You entered: ' + v); };
+  document.getElementById('start-loading').onclick = () => {
+    document.getElementById('loading').classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('loaded-text').classList.remove('hidden');
+    }, 2000);
+  };
+  document.getElementById('file-upload').onchange = e => document.getElementById('file-name').textContent = 'Uploaded: ' + e.target.files[0].name;
+</script></body></html>

@@ -1,0 +1,7 @@
+[
+  { "case": "empty username", "username": "", "password": "Test@123", "error": "Username is required" },
+  { "case": "empty password", "username": "standard_user", "password": "", "error": "Password is required" },
+  { "case": "wrong password", "username": "standard_user", "password": "wrong", "error": "Username and password do not match" },
+  { "case": "unknown user", "username": "nobody", "password": "Test@123", "error": "Username and password do not match" },
+  { "case": "locked user", "username": "locked_user", "password": "Test@123", "error": "This user has been locked out" }
+]

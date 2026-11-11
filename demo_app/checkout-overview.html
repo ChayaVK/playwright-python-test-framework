@@ -1,0 +1,22 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Overview</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<script>requireLogin(); header('Checkout: Overview');</script>
+<main>
+  <div id="summary-items"></div>
+  <div class="card">
+    <div id="subtotal"></div><div id="tax"></div><div id="total" style="font-weight:bold"></div>
+  </div>
+  <button id="cancel" class="secondary">Cancel</button> <button id="finish">Finish</button>
+</main>
+<script>
+  const items = cart().map(bySlug);
+  document.getElementById('summary-items').innerHTML = items.map(p =>
+    `<div class="card cart-item"><div class="item-name">${p.name}</div><div class="item-price">${money(p.price)}</div></div>`).join('');
+  const sub = items.reduce((s, p) => s + p.price, 0);
+  const tax = Math.round(sub * TAX_RATE * 100) / 100;
+  document.getElementById('subtotal').textContent = 'Item total: ' + money(sub);
+  document.getElementById('tax').textContent = 'Tax: ' + money(tax);
+  document.getElementById('total').textContent = 'Total: ' + money(sub + tax);
+  document.getElementById('cancel').onclick = () => location.href = 'products.html';
+  document.getElementById('finish').onclick = () => { saveCart([]); location.href = 'complete.html'; };
+</script></body></html>

@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Practice Shop - Products</title>
+<link rel="stylesheet" href="style.css"><script src="app.js"></script></head><body>
+<script>requireLogin(); header('Products');</script>
+<main>
+  <label for="sort">Sort by</label>
+  <select id="sort">
+    <option value="az">Name (A to Z)</option><option value="za">Name (Z to A)</option>
+    <option value="lohi">Price (low to high)</option><option value="hilo">Price (high to low)</option>
+  </select>
+  <div id="inventory" class="grid"></div>
+</main>
+<script>
+  function render() {
+    const order = document.getElementById('sort').value;
+    const list = [...PRODUCTS].sort((a, b) =>
+      order === 'az' ? a.name.localeCompare(b.name) : order === 'za' ? b.name.localeCompare(a.name) :
+      order === 'lohi' ? a.price - b.price : b.price - a.price);
+    const inCart = cart();
+    document.getElementById('inventory').innerHTML = list.map(p => {
+      const added = inCart.includes(p.slug);
+      return `<div class="card inventory-item"><div class="item-name">${p.name}</div>
+        <div class="hint">${p.desc}</div><div class="item-price">${money(p.price)}</div>
+        <button id="${added ? 'remove' : 'add'}-${p.slug}" class="${added ? 'secondary' : ''}">${added ? 'Remove' : 'Add to cart'}</button></div>`;
+    }).join('');
+    list.forEach(p => {
+      const btn = document.getElementById((inCart.includes(p.slug) ? 'remove-' : 'add-') + p.slug);
+      btn.onclick = () => {
+        const items = cart();
+        saveCart(items.includes(p.slug) ? items.filter(s => s !== p.slug) : [...items, p.slug]);
+        location.reload();
+      };
+    });
+  }
+  const savedSort = sessionStorage.getItem('sort');
+  if (savedSort) document.getElementById('sort').value = savedSort;
+  document.getElementById('sort').onchange = e => { sessionStorage.setItem('sort', e.target.value); render(); };
+  render();
+</script></body></html>
